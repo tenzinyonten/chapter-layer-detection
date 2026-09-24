@@ -1,0 +1,66 @@
+{
+  "seed": 2,
+  "score": 0.010548351980970868,
+  "global": {
+    "spw": 0.27479674796747966,
+    "short": 0.32117028270874426,
+    "old": 0.4925022583559169
+  },
+  "stats": {
+    "train": {
+      "books": 308,
+      "old_books": 114,
+      "new_books": 194,
+      "windows": 9165,
+      "pct_windows": 82.79,
+      "spans": 2509,
+      "spans_per_window": 0.274,
+      "pct_short": 31.8,
+      "pct_old_windows": 49.3,
+      "from_split_v3": 65
+    },
+    "val": {
+      "books": 34,
+      "old_books": 13,
+      "new_books": 21,
+      "windows": 965,
+      "pct_windows": 8.72,
+      "spans": 275,
+      "spans_per_window": 0.285,
+      "pct_short": 34.5,
+      "pct_old_windows": 49.2,
+      "from_split_v3": 16
+    },
+    "test": {
+      "books": 36,
+      "old_books": 16,
+      "new_books": 20,
+      "windows": 940,
+      "pct_windows": 8.49,
+      "spans": 258,
+      "spans_per_window": 0.274,
+      "pct_short": 32.2,
+      "pct_old_windows": 49.3,
+      "from_split_v3": 16
+    }
+  },
+  "keep_v3": true,
+  "excluded": [
+    "P000063",
+    "P000087",
+    "P000117",
+    "P000144",
+    "P000151",
+    "P000153",
+    "P000156",
+    "P000170",
+    "P000175",
+    "P000179",
+    "P000185",
+    "P000199",
+    "P000226",
+    "P000229",
+    "P000250",
+    "P000269"
+  ]
+}

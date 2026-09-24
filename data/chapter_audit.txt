@@ -1,0 +1,61 @@
+=== COVERAGE ===
+batch   books Chapter.yml  non-empty    spans
+old       266         159        159    1,637
+new       273         235        235    1,615
+
+=== LENGTH (chars) ===
+batch        n   p10   p25   med   p75   p90    p99     max    <15   >300
+old      1,637    17    31    49    77   107    156     257   5.6%   0.0%
+new      1,615    11    18    36    65    98    153     212  13.3%   0.0%
+
+=== FRAGMENTATION / SELF-OVERLAP ===
+batch    next sep by punct only    gap=0  overlap next   nested
+old           110 (  6.7%)        0             0        0
+new           267 ( 16.5%)        0             0        0
+
+=== CROSS-LAYER OVERLAP (% of Chapter spans touching layer) ===
+layer                 old      new
+Sabche               0.0%     0.1%
+Tsawa                0.0%     0.0%
+Quotation            0.1%     0.0%
+Citation             0.0%     0.0%
+Commentary           0.0%     0.2%
+Yigchung             0.0%     0.0%
+BookTitle            0.0%     1.1%
+Author               0.0%     0.2%
+Sab|Tsa|Quo|Cit      0.1%     0.1%
+
+=== LEXICAL MARKERS ===
+marker                            old      new
+opens w/ ordinal (དང་པོ…)        1.8%     2.4%
+closes ...ནི                     3.2%     1.2%
+closes ...ལ / ལའང                2.2%     4.1%
+ends with shad ། (incl)         33.9%    16.9%
+old top last syl: སོ:26.9%, པ:13.7%, བཞུགས:5.5%, བ:4.4%, མགུར:3.7%, ནི:3.2%, སྐབས:2.5%, པའོ:1.8%
+old top first syl: ༄༅:41.5%, ༈:6.2%, ལེའུ:5.2%, ི:2.2%, རབ:1.6%, ཕྱག:1.1%, དཔེ:1.0%, ཐོག:0.8%
+new top last syl: པ:20.2%, སོ:13.1%, བ:6.6%, བཤད:4.0%, ཚི:3.4%, ཆ:2.9%, ཚུལ:1.9%, ཁྲིད:1.6%
+new top first syl: ༄༅:22.7%, དཔེ:6.8%, ༈:4.5%, དཀར:3.0%, ༢:2.2%, ༡:2.2%, ཆོས:1.8%, བླ:1.7%
+
+=== BOUNDARY CLEANLINESS (raw offsets) ===
+batch    total    dirty start      dirty end   dirty either
+old      1,637    166 (10.1%)    994 (60.7%)  1,044 (63.8%)
+new      1,615      0 ( 0.0%)  1,300 (80.5%)  1,300 (80.5%)
+all      3,252    166 ( 5.1%)  2,294 (70.5%)  2,344 (72.1%)
+
+=== PER-BOOK DENSITY (non-empty Chapter books) ===
+old    books=159 spans/book med=3 p10=1  per100k med=2.3 p10=0.3  <10 spans: 117  <5 per100k: 112
+new    books=235 spans/book med=1 p10=1  per100k med=3.3 p10=0.6  <10 spans: 188  <5 per100k: 154
+books w/ Tsawa or Commentary but NO Chapter: 60 (old 22, new 38)
+
+=== LEAKAGE (Chapter spans >=40 chars, verbatim in another book) ===
+long Chapter spans: 1,713; found verbatim in >=1 other book: 181 (10.6%)
+  old: 59/989 (6.0%)
+  new: 122/724 (16.9%)
+book pairs linked (>=10% share): 407
+Chapter books in split_v3: 106/394 (train 71, val 17, test 18)
+split_v3 leakage val: 6/85 (7.1%) of long Chapter spans appear in a train book
+split_v3 leakage test: 4/62 (6.5%) of long Chapter spans appear in a train book
+linked pairs straddling split_v3 splits: 69 e.g. [('I8994AAB2', 'ICDC84458'), ('I4FD99A33', 'ICDC84458'), ('I27E347E9', 'I3F4A91F5'), ('I0FCFA88F', 'I9779A606'), ('I2EAAF38A', 'IB8D599AA'), ('IC5CE7FE9', 'IE5895799')]
+linked pairs with one book outside split_v3: 167
+
+wrote /Users/tenzinyonten/layer_detection/scratch/chapter/audit/chapter_audit.csv, /Users/tenzinyonten/layer_detection/scratch/chapter/audit/chapter_books.csv, scratch/chapter/audit/chapter_links.csv
