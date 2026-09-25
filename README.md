@@ -33,14 +33,6 @@ to a sidecar CSV in `data/`. More detail is in `docs/PIPELINE.md`.
 | Short spans | Kept. 306 raw spans are under 15 characters, such as `ལེའུ་བརྒྱད་པ`. | 0 dropped. |
 | Split | Book-level, stratified on window share, spans per window, share of short spans and old-batch share, 83/8.5/8.5 by windows. The 97 books already in the tsawa split keep their split. Books that share text are not grouped. | The first split (by window count only) was replaced: it had 2,292 / 477 / 273 spans in train / val / test. The final split has 2,509 / 275 / 258. |
 
-Leakage was measured and not constrained. Long spans (40+ characters) that also appear word for
-word in a train book: 12 of 138 in validation (8.7%) and 21 of 152 in test (13.8%), concentrated
-in a few books. Exact-title matches are mostly stock headings (`དཀར་ཆག`, publisher's notes). 439
-book pairs share at least one long span, 185 of them in different splits.
-
-Known limits: 216 of the 393 books have one or two spans and may be under-annotated (not
-audited), and about 1.1% of new-batch chapter spans overlap a book-title span. The validation
-split is unusual: one book holds 47% of its spans (see section 5).
 
 ## 3. Dataset
 
