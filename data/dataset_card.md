@@ -35,12 +35,21 @@ share of short spans (`split_frozen.csv`), by book only.
 | item | value |
 |---|---|
 | tokenizer | `jhu-clsp/mmBERT-base` (fast, offsets) |
-| window / stride | 8192 (8190 content + CLS/SEP) / 5120 |
+| window / step | 8192 (8190 content + CLS/SEP) / 5120 between window starts |
 | labels | `O`=0, `B-CHAPTER`=1, `I-CHAPTER`=2; CLS/SEP/pad = -100 |
 | label rule | token-start rule (`build_tsawa_dataset.label_tokens`) |
 | columns | input_ids, attention_mask, labels, token_start, token_end, char_start, char_end, pecha_id, source_batch, window_index, n_tokens_doc, coverage_pct |
 | span source | `data/chapter_spans_clean.csv` (dropped=False) |
 | split | `data/split_frozen.csv` (**test frozen**) |
+
+**Geometry.** Windows hold 8,192 tokens (8,190 content tokens plus CLS and SEP) and start every
+5,120 tokens, so consecutive windows overlap by 3,070 content tokens. In this card and in the code,
+"stride" means the step between window starts. The Hugging Face tokenizer argument `stride` means the
+overlap, so the equivalent value there is 3,070. Tokens in the overlap are labelled in both windows.
+
+**Offsets.** Span offsets in the cleaned span CSVs and in the dataset columns `char_start` and
+`char_end` use an exclusive end (`text[start:end]`). The prediction files and the scoring code in the
+GitHub repository use an inclusive end (`text[start:end+1]`), so convert with `end - 1`.
 
 ## Size
 
@@ -111,3 +120,18 @@ span, and 185 of them sit in different splits.
 - About 1.1% of new-batch Chapter spans overlap a BookTitle span. Not resolved.
 - The test split has 258 spans in 36 books, so scores will be noisy.
 - The heading-shape check used to find drifted books is a heuristic.
+
+## Citation
+
+```bibtex
+@misc{formatting_chapter,
+  title  = {Formatting Chapter: Tibetan chapter-heading token classification data},
+  author = {Yontenn},
+  year   = {2026},
+  url    = {https://huggingface.co/datasets/Yontenn/formatting-chapter-v1}
+}
+```
+
+## Acknowledgements
+
+Source texts were digitized and made available by the [Buddhist Digital Resource Center (BDRC)](https://www.bdrc.io/). We gratefully acknowledge BDRC. Annotations were prepared through [OpenPecha](https://openpecha.org/) with support from the [Tsadra Foundation](https://www.tsadra.org/).
