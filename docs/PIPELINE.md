@@ -121,6 +121,18 @@ are in `results/mmbert-chapter-v1/dumps/`, so the last two steps can be repeated
 overlapping windows. Its raw JSON output is kept in `results/mmbert-chapter-v1/window_level_*.json`
 for the record, but the scores in the README come from the whole-book scorer.
 
+`src/mmbert_predict.py` runs a trained model straight over a book's text, with no tokenized dataset, and
+writes the same per-book offset files that `src/score_spans.py` reads:
+
+```
+python src/mmbert_predict.py --model Yontenn/mmbert-chapter-v1 --texts-dir data/raw_opf \
+    --books <book ids> --out results/mmbert-chapter-v1/test --break-penalty 4.0
+```
+
+Use a GPU for whole splits, since a window of 8,192 tokens takes tens of seconds on a CPU. It reproduces
+the saved predictions closely but not always exactly. On three Chapter test books it matched two exactly, and on the third it left out one 6-character span whose scores are borderline, because a CPU run and the original GPU run round slightly differently. The reported scores come from the GPU dump route
+described above.
+
 `src/analyze_chapter_errors.py` is a separate error-analysis tool. It converts the dump to
 characters in memory and merges overlapping spans from different windows into one, where the
 shared converter keeps a span unless it overlaps an earlier one by IoU 0.5. That is why it gives
